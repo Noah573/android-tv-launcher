@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <!-- 背景 -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M0,0h320v180h-320z" />
+    <!-- 图标 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M160,60 L200,90 L160,120 L120,90 Z"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF" />
+    <!-- 文字 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M100,140 L130,140 L130,145 L100,145 Z M140,140 L170,140 L170,145 L140,145 Z M180,140 L210,140 L210,145 L180,145 Z" />
+</vector>

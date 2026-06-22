@@ -1,0 +1,7 @@
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/TVLauncherApp.kt
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/MainActivity.kt
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/FavoriteAppAdapter.kt
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/AppListAdapter.kt
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/AppInfo.kt
+/home/noah/AndroidTVLauncher/app/src/main/java/com/tvlauncher/WifiStateReceiver.kt
+/home/noah/AndroidTVLauncher/app/build/gen/com/tvlauncher/R.java

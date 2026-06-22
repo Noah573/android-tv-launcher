@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主色调 -->
+    <color name="primary">#FF6200EE</color>
+    <color name="primary_dark">#FF3700B3</color>
+    <color name="accent">#FF03DAC5</color>
+    
+    <!-- 背景色 -->
+    <color name="background_start">#FF0A0A0A</color>
+    <color name="background_end">#FF1A1A2E</color>
+    <color name="surface">#FF1E1E1E</color>
+    <color name="surface_light">#FF2D2D2D</color>
+    
+    <!-- 文字颜色 -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="text_hint">#80FFFFFF</color>
+    
+    <!-- 状态栏图标颜色 -->
+    <color name="status_icon_color">#CCFFFFFF</color>
+    
+    <!-- 焦点颜色 -->
+    <color name="focus_background">#33FFFFFF</color>
+    <color name="focus_border">#66FFFFFF</color>
+    
+    <!-- 透明 -->
+    <color name="transparent">#00000000</color>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TV桌面</string>
+    <string name="favorites">收藏</string>
+    <string name="all_apps">所有应用</string>
+    <string name="wifi_status">WiFi状态</string>
+    <string name="weather">天气</string>
+    <string name="settings">设置</string>
+    <string name="app_info">应用信息</string>
+</resources>

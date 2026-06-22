@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TV Launcher主题 -->
+    <style name="Theme.TVLauncher" parent="android:Theme.Material.NoActionBar">
+        <!-- 全屏沉浸式 -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        
+        <!-- 背景 -->
+        <item name="android:windowBackground">@drawable/bg_gradient</item>
+        <item name="android:colorBackground">@color/background_start</item>
+        
+        <!-- 状态栏 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        
+        <!-- 文字颜色 -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        
+        <!-- 焦点颜色 -->
+        <item name="android:colorFocusedHighlight">@color/focus_background</item>
+        
+        <!-- 动画 -->
+        <item name="android:windowAnimationStyle">@style/TVAnimation</item>
+    </style>
+    
+    <!-- TV动画 -->
+    <style name="TVAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+</resources>
