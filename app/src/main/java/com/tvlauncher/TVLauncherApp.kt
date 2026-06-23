@@ -2,7 +2,7 @@ package com.tvlauncher
 
 import android.app.Application
 import android.os.StrictMode
-import com.tvlauncher.util.PrefsManager
+import com.tvlauncher.data.PrefsManager
 
 class TVLauncherApp : Application() {
     lateinit var prefsManager: PrefsManager

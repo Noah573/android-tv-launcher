@@ -31,7 +31,7 @@ class StatusBarView @JvmOverloads constructor(
 
     private val wifiIcon: ImageView
     private val weatherIcon: ImageView
-    private val weatherTemp: TextView
+    private val weatherText: TextView
     private val dateText: TextView
     private val timeText: TextView
 
@@ -57,7 +57,7 @@ class StatusBarView @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.view_status_bar, this, true)
         wifiIcon = findViewById(R.id.wifiIcon)
         weatherIcon = findViewById(R.id.weatherIcon)
-        weatherTemp = findViewById(R.id.weatherTemp)
+        weatherText = findViewById(R.id.weatherText)
         dateText = findViewById(R.id.dateText)
         timeText = findViewById(R.id.timeText)
 
@@ -94,10 +94,10 @@ class StatusBarView @JvmOverloads constructor(
 
     fun updateWifiState(isConnected: Boolean) {
         if (isConnected) {
-            wifiIcon.setImageResource(R.drawable.ic_wifi_connected)
+            wifiIcon.setImageResource(R.drawable.ic_wifi_on)
             wifiIcon.alpha = 1.0f
         } else {
-            wifiIcon.setImageResource(R.drawable.ic_wifi_disconnected)
+            wifiIcon.setImageResource(R.drawable.ic_wifi_off)
             wifiIcon.alpha = 0.5f
         }
     }
@@ -105,13 +105,13 @@ class StatusBarView @JvmOverloads constructor(
     fun updateWeather() {
         // Weather data would be fetched from a weather API
         // For now, show placeholder
-        weatherIcon.setImageResource(R.drawable.ic_weather_default)
-        weatherTemp.text = "--°"
+        weatherIcon.setImageResource(R.drawable.ic_weather_sunny)
+        weatherText.text = "--°"
     }
 
     fun setWeatherData(iconRes: Int, temp: String) {
         weatherIcon.setImageResource(iconRes)
-        weatherTemp.text = temp
+        weatherText.text = temp
     }
 
     fun setAreaFocused(focused: Boolean) {

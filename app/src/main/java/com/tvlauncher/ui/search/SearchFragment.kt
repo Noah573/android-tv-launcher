@@ -26,8 +26,8 @@ class SearchFragment : Fragment() {
 
     private lateinit var searchInput: EditText
     private lateinit var searchResults: RecyclerView
-    private lateinit var noResults: TextView
-    private lateinit var closeBtn: ImageView
+    private var noResults: TextView? = null
+    private var closeBtn: ImageView? = null
     private val adapter = SearchResultAdapter { appInfo ->
         val intent = requireContext().packageManager.getLaunchIntentForPackage(appInfo.packageName)
         intent?.let { startActivity(it) }
@@ -45,10 +45,10 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchInput = view.findViewById(R.id.searchInput)
-        searchResults = view.findViewById(R.id.searchResults)
-        noResults = view.findViewById(R.id.noResults)
-        closeBtn = view.findViewById(R.id.closeSearch)
+        searchInput = view.findViewById(R.id.searchEditText)
+        searchResults = view.findViewById(R.id.searchResultsRecyclerView)
+        noResults = null
+        closeBtn = null
 
         searchResults.layoutManager = GridLayoutManager(requireContext(), 6)
         searchResults.adapter = adapter
@@ -102,7 +102,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupClose() {
-        closeBtn.setOnClickListener {
+        closeBtn?.setOnClickListener {
             (activity as? MainActivity)?.closeOverlay()
         }
     }
@@ -110,7 +110,7 @@ class SearchFragment : Fragment() {
     private fun filterApps(query: String) {
         if (query.isBlank()) {
             adapter.submitList(emptyList())
-            noResults.visibility = View.GONE
+            noResults?.visibility = View.GONE
             return
         }
         val filtered = allApps.filter {
@@ -118,7 +118,7 @@ class SearchFragment : Fragment() {
             it.packageName.lowercase(Locale.getDefault()).contains(query.lowercase(Locale.getDefault()))
         }
         adapter.submitList(filtered)
-        noResults.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
+        noResults?.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private class SearchResultAdapter(

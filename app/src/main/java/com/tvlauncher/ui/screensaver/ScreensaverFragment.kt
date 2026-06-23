@@ -50,7 +50,7 @@ class ScreensaverFragment : Fragment() {
 
         clockText = view.findViewById(R.id.clockText)
         dateText = view.findViewById(R.id.dateText)
-        backgroundView = view.findViewById(R.id.screensaverBackground)
+        backgroundView = view.findViewById(R.id.aurora_bg)
 
         setupBackground()
         updateClock()

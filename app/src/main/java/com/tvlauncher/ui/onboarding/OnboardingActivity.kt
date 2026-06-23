@@ -18,57 +18,28 @@ import com.tvlauncher.data.PrefsManager
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private var currentPage = 0
     private lateinit var prefsManager: PrefsManager
     private lateinit var appManager: AppManager
-    private var selectedApps = mutableSetOf<String>()
+    private val selectedApps = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
-
         prefsManager = PrefsManager(this)
         appManager = AppManager(this)
 
-        if (!prefsManager.isFirstLaunch) {
+        if (!prefsManager.isFirstLaunch()) {
+            startActivity(Intent(this, com.tvlauncher.ui.MainActivity::class.java))
             finish()
             return
         }
 
-        showPage(0)
-    }
-
-    private fun showPage(page: Int) {
-        currentPage = page
-        when (page) {
-            0 -> showWelcomePage()
-            1 -> showSelectAppsPage()
-            2 -> finishOnboarding()
-        }
-    }
-
-    private fun showWelcomePage() {
-        setContentView(R.layout.fragment_onboarding_select)
-        val title = findViewById<TextView>(R.id.onboardingTitle)
-        val subtitle = findViewById<TextView>(R.id.onboardingSubtitle)
-        val nextBtn = findViewById<Button>(R.id.onboardingNext)
-
-        title?.text = getString(R.string.onboarding_welcome_title)
-        subtitle?.text = getString(R.string.onboarding_welcome_message)
-        nextBtn?.text = getString(R.string.onboarding_next)
-        nextBtn?.setOnClickListener { showPage(1) }
+        showSelectAppsPage()
     }
 
     private fun showSelectAppsPage() {
         setContentView(R.layout.fragment_onboarding_select)
-        val title = findViewById<TextView>(R.id.onboardingTitle)
-        val subtitle = findViewById<TextView>(R.id.onboardingSubtitle)
-        val nextBtn = findViewById<Button>(R.id.onboardingNext)
-        val grid = findViewById<RecyclerView>(R.id.onboardingGrid)
-
-        title?.text = getString(R.string.onboarding_select_title)
-        subtitle?.text = getString(R.string.onboarding_select_message)
-        nextBtn?.text = getString(R.string.onboarding_done)
+        val grid = findViewById<RecyclerView>(R.id.appSelectionGrid)
+        val nextBtn = findViewById<Button>(R.id.nextButton)
 
         val apps = appManager.loadApps()
         val adapter = OnboardingAppAdapter(apps, selectedApps) { packageName, selected ->
@@ -78,18 +49,15 @@ class OnboardingActivity : AppCompatActivity() {
         grid?.layoutManager = GridLayoutManager(this, 6)
         grid?.adapter = adapter
 
+        nextBtn?.text = getString(R.string.onboarding_done)
         nextBtn?.setOnClickListener {
             val pinnedApps = apps.filter { selectedApps.contains(it.packageName) }
             pinnedApps.forEach { appManager.togglePin(it.packageName) }
             prefsManager.savePinnedOrder(selectedApps.toList())
-            finishOnboarding()
+            prefsManager.setFirstLaunchDone()
+            startActivity(Intent(this, com.tvlauncher.ui.MainActivity::class.java))
+            finish()
         }
-    }
-
-    private fun finishOnboarding() {
-        prefsManager.setFirstLaunchDone()
-        startActivity(Intent(this, com.tvlauncher.ui.MainActivity::class.java))
-        finish()
     }
 
     private class OnboardingAppAdapter(
@@ -112,18 +80,19 @@ class OnboardingActivity : AppCompatActivity() {
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val icon: ImageView = itemView.findViewById(R.id.appIcon)
             private val name: TextView = itemView.findViewById(R.id.appName)
-            private val check: ImageView? = itemView.findViewById(R.id.pinIndicator)
+            private val glow: View? = itemView.findViewById(R.id.focusGlow)
 
             fun bind(app: AppInfo) {
                 icon.setImageDrawable(app.icon)
                 name.text = app.name
-                check?.visibility = if (selected.contains(app.packageName)) View.VISIBLE else View.GONE
+                glow?.alpha = if (selected.contains(app.packageName)) 1f else 0f
                 itemView.setOnClickListener {
                     val isSelected = !selected.contains(app.packageName)
                     onToggle(app.packageName, isSelected)
-                    check?.visibility = if (isSelected) View.VISIBLE else View.GONE
+                    glow?.alpha = if (isSelected) 1f else 0f
                 }
             }
         }
     }
 }
+

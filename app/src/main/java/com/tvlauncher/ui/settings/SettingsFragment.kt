@@ -25,12 +25,9 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val closeBtn = view.findViewById<ImageView>(R.id.closeSettings)
-        closeBtn?.setOnClickListener {
-            (activity as? MainActivity)?.closeOverlay()
-        }
+        // No close button in layout, back key handles closing
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.settingsList)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.settingsRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = SettingsAdapter(getSettingsItems())
     }
@@ -72,13 +69,13 @@ class SettingsFragment : Fragment() {
     private fun cycleAnimationLevel() {
         val mainActivity = activity as? MainActivity ?: return
         val prefs = com.tvlauncher.data.PrefsManager(mainActivity)
-        val current = prefs.animationLevel
+        val current = prefs.getAnimationLevel()
         val next = when (current) {
             com.tvlauncher.util.Constants.ANIM_LEVEL_HIGH -> com.tvlauncher.util.Constants.ANIM_LEVEL_MEDIUM
             com.tvlauncher.util.Constants.ANIM_LEVEL_MEDIUM -> com.tvlauncher.util.Constants.ANIM_LEVEL_LOW
             else -> com.tvlauncher.util.Constants.ANIM_LEVEL_HIGH
         }
-        prefs.animationLevel = next
+        prefs.setAnimationLevel(next)
         val levelName = when (next) {
             com.tvlauncher.util.Constants.ANIM_LEVEL_HIGH -> getString(R.string.anim_high)
             com.tvlauncher.util.Constants.ANIM_LEVEL_MEDIUM -> getString(R.string.anim_medium)
@@ -114,7 +111,7 @@ class SettingsFragment : Fragment() {
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val icon: ImageView = itemView.findViewById(R.id.settingIcon)
-            private val title: TextView = itemView.findViewById(R.id.settingTitle)
+            private val title: TextView = itemView.findViewById(R.id.settingText)
 
             fun bind(item: SettingsItem) {
                 icon.setImageResource(item.iconRes)
