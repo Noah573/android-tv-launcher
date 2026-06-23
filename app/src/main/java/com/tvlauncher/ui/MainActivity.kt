@@ -195,7 +195,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateStatusBarWifi(isConnected: Boolean) {
         try {
-            val statusBar = binding.root.findViewById<View>(R.id.statusBar) ?: return
+            val homeContent = binding.root.findViewById<View>(R.id.homeContent) ?: return
+            val statusBar = homeContent.findViewById<View>(R.id.statusBar) ?: return
             val wifiIcon = statusBar.findViewById<ImageView>(R.id.wifiIcon) ?: return
             if (isConnected) {
                 wifiIcon.setImageResource(R.drawable.ic_wifi_on)
