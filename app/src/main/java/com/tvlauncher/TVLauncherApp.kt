@@ -2,6 +2,7 @@ package com.tvlauncher
 
 import android.app.Application
 import android.os.StrictMode
+import com.tvlauncher.BuildConfig
 
 class TVLauncherApp : Application() {
     override fun onCreate() {

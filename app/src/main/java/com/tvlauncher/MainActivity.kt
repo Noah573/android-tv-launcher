@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Bundle
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
