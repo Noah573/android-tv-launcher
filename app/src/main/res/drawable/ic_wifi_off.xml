@@ -4,13 +4,10 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- WiFi关闭图标 -->
     <path
-        android:fillColor="#80FFFFFF"
-        android:pathData="M22.99,9C22.99,9 18.55,2.95 12,3C5.45,2.95 1,9 1,9L12,20L22.99,9ZM12,17.18L4.71,9.89C6.45,8.14 9.09,7.13 12,7.13C14.91,7.13 17.55,8.14 19.29,9.89L12,17.18Z" />
+        android:fillColor="#999999"
+        android:pathData="M24,0 L24,24 L0,24 L0,0 Z M0,0" />
     <path
-        android:fillColor="#80FFFFFF"
-        android:pathData="M2.21,4.71L3.29,3.63L20.71,21.06L19.63,22.14L2.21,4.71Z"
-        android:strokeWidth="2"
-        android:strokeColor="#80FFFFFF" />
+        android:fillColor="#999999"
+        android:pathData="M22.99,9C19.15,5.16 13.8,3.76 8.84,6.06L19.07,16.29C21.12,12.47 22.56,9.95 22.99,9zM12,9.5c-1.38,0 -2.5,1.12 -2.5,2.5h3.5L13,11.5L13,10.39C13,9.63 12.55,9.5 12,9.5zM14.84,6.06C13.43,5.51 11.84,5.5 10.39,6.01L12.71,8.33C13.47,8.25 14.13,7.71 14.13,7L14.84,6.06zM3.71,3.56L2.29,4.98L6.11,8.8C4.27,10.77 3,13.24 3,16c0,0.75 0.12,1.47 0.31,2.16L7.57,15.4C6.59,14.32 6,12.74 6,11c0,-0.96 0.22,-1.87 0.59,-2.7L3.71,3.56z" />
 </vector>

@@ -3,130 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
     tools:context=".MainActivity">
 
-    <!-- 顶部状态栏 -->
-    <LinearLayout
-        android:id="@+id/statusBar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="24dp"
-        android:layout_gravity="top">
-
-        <!-- WiFi状态 -->
-        <ImageView
-            android:id="@+id/statusWifi"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_wifi_on"
-            android:contentDescription="@string/wifi_status"
-             />
-
-        <!-- 天气图标 -->
-        <ImageView
-            android:id="@+id/statusWeather"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_weather_sunny"
-            android:contentDescription="@string/weather"
-             />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <!-- 日期 -->
-        <TextView
-            android:id="@+id/statusDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif-light"
-            tools:text="06月22日 星期日" />
-
-        <!-- 时间 -->
-        <TextView
-            android:id="@+id/statusTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:fontFamily="sans-serif-medium"
-            tools:text="10:30" />
-    </LinearLayout>
-
-    <!-- 主内容区域 -->
-    <LinearLayout
+    <!-- Wallpaper background -->
+    <ImageView
+        android:id="@+id/wallpaperBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="24dp">
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_wallpaper_1" />
 
-        <!-- 收藏应用区域 -->
-        <LinearLayout
+    <CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Status bar -->
+        <include
+            layout="@layout/fragment_home"
+            android:id="@+id/homeContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="48dp">
+            android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/favorites"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.1"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="12dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favoriteAppsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:paddingStart="48dp"
-                android:paddingEnd="48dp"
-                android:clipToPadding="false"
-                android:scrollbars="none" />
-        </LinearLayout>
-
-        <!-- 所有应用区域 -->
-        <LinearLayout
+        <!-- Home fragment container -->
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginTop="24dp">
+            android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/all_apps"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.1"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="12dp" />
+        <!-- Overlay container for control center, screensaver, search, settings -->
+        <FrameLayout
+            android:id="@+id/overlayContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/appsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingStart="48dp"
-                android:paddingEnd="48dp"
-                android:clipToPadding="false"
-                android:scrollbars="none" />
-        </LinearLayout>
-    </LinearLayout>
+    </CoordinatorLayout>
 
 </FrameLayout>

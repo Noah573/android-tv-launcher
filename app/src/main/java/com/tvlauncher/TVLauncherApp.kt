@@ -2,13 +2,16 @@ package com.tvlauncher
 
 import android.app.Application
 import android.os.StrictMode
-import com.tvlauncher.BuildConfig
+import com.tvlauncher.util.PrefsManager
 
 class TVLauncherApp : Application() {
+    lateinit var prefsManager: PrefsManager
+        private set
+
     override fun onCreate() {
         super.onCreate()
-        
-        // 仅在Debug模式启用StrictMode
+        instance = this
+        prefsManager = PrefsManager(this)
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(
                 StrictMode.ThreadPolicy.Builder()
@@ -16,6 +19,17 @@ class TVLauncherApp : Application() {
                     .penaltyLog()
                     .build()
             )
+            StrictMode.setVmPolicy(
+                StrictMode.VmPolicy.Builder()
+                    .detectAll()
+                    .penaltyLog()
+                    .build()
+            )
         }
+    }
+
+    companion object {
+        lateinit var instance: TVLauncherApp
+            private set
     }
 }
