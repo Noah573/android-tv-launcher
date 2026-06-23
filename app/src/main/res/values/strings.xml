@@ -62,4 +62,7 @@
     <string name="anim_high">高</string>
     <string name="anim_medium">中</string>
     <string name="anim_low">低</string>
+    <string name="brightness_permission">需要亮度调节权限</string>
+    <string name="wifi_toggle_failed">无法切换 Wi-Fi</string>
+    <string name="bluetooth_toggle_failed">无法切换蓝牙</string>
 </resources>
