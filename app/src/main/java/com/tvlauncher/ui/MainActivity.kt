@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
@@ -17,29 +16,24 @@ import android.os.Looper
 import android.util.Log
 import android.view.InputDevice
 import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import com.tvlauncher.R
 import com.tvlauncher.databinding.ActivityMainBinding
+import com.tvlauncher.data.PrefsManager
 import com.tvlauncher.ui.controlcenter.ControlCenterFragment
 import com.tvlauncher.ui.home.HomeFragment
 import com.tvlauncher.ui.screensaver.ScreensaverFragment
 import com.tvlauncher.ui.search.SearchFragment
 import com.tvlauncher.ui.settings.SettingsFragment
-import com.tvlauncher.ui.statusbar.StatusBarView
-import com.tvlauncher.util.PrefsManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             when (intent.action) {
                 ConnectivityManager.CONNECTIVITY_ACTION,
                 WifiManager.WIFI_STATE_CHANGED_ACTION -> {
-                    binding.statusBar.updateWifiState(isWifiConnected())
+                    updateStatusBarWifi(isWifiConnected())
                 }
             }
         }
@@ -71,13 +65,12 @@ class MainActivity : AppCompatActivity() {
         setupFullScreen()
         setupInputMode()
         setupWallpaper()
-        setupStatusBar()
         setupFragments()
         setupOverlayContainer()
 
         if (savedInstanceState == null) {
             checkDefaultLauncher()
-            if (prefsManager.isFirstLaunch) {
+            if (prefsManager.isFirstLaunch()) {
                 launchOnboarding()
             }
         }
@@ -87,8 +80,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         registerConnectivityReceiver()
         resetScreensaverTimer()
-        binding.statusBar.updateWifiState(isWifiConnected())
-        binding.statusBar.updateWeather()
+        updateStatusBarWifi(isWifiConnected())
     }
 
     override fun onPause() {
@@ -141,32 +133,22 @@ class MainActivity : AppCompatActivity() {
     fun isRemoteInputMode(): Boolean = isRemoteMode
 
     private fun setupWallpaper() {
-        val wallpaperRes = prefsManager.wallpaperResId
-        if (wallpaperRes != 0) {
-            binding.wallpaperImage.setImageResource(wallpaperRes)
-        } else {
-            try {
-                binding.wallpaperImage.setImageResource(R.drawable.default_wallpaper)
-            } catch (_: Exception) {
-                binding.wallpaperImage.setBackgroundColor(0xFF1A1A2E.toInt())
-            }
+        try {
+            binding.wallpaperBackground.setImageResource(R.drawable.default_wallpaper)
+        } catch (_: Exception) {
+            binding.wallpaperBackground.setBackgroundColor(0xFF1A1A2E.toInt())
         }
-        binding.wallpaperImage.scaleType = ImageView.ScaleType.CENTER_CROP
+        binding.wallpaperBackground.scaleType = ImageView.ScaleType.CENTER_CROP
     }
 
     fun setWallpaper(resourceId: Int) {
-        binding.wallpaperImage.setImageResource(resourceId)
-        prefsManager.wallpaperResId = resourceId
-    }
-
-    private fun setupStatusBar() {
-        binding.statusBar.setActivity(this)
+        binding.wallpaperBackground.setImageResource(resourceId)
     }
 
     private fun setupFragments() {
         if (supportFragmentManager.findFragmentByTag("home") == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.homeContainer, HomeFragment.newInstance(), "home")
+                .replace(R.id.homeContent, HomeFragment.newInstance(), "home")
                 .commit()
         }
     }
@@ -207,6 +189,22 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("MainActivity", "Failed to launch onboarding", e)
         }
+    }
+
+    // --- Status bar helpers ---
+
+    private fun updateStatusBarWifi(isConnected: Boolean) {
+        try {
+            val statusBar = binding.root.findViewById<View>(R.id.statusBar) ?: return
+            val wifiIcon = statusBar.findViewById<ImageView>(R.id.wifiIcon) ?: return
+            if (isConnected) {
+                wifiIcon.setImageResource(R.drawable.ic_wifi_on)
+                wifiIcon.alpha = 1.0f
+            } else {
+                wifiIcon.setImageResource(R.drawable.ic_wifi_off)
+                wifiIcon.alpha = 0.5f
+            }
+        } catch (_: Exception) {}
     }
 
     // --- Overlay management ---

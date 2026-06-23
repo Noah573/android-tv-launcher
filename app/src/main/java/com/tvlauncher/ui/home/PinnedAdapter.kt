@@ -30,7 +30,7 @@ class PinnedAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PinnedViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_pinned_app, parent, false)
+            .inflate(R.layout.item_pinned, parent, false)
         return PinnedViewHolder(view)
     }
 
@@ -39,13 +39,13 @@ class PinnedAdapter(
     }
 
     inner class PinnedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val iconView: ImageView = itemView.findViewById(R.id.pinnedAppIcon)
-        private val nameView: TextView = itemView.findViewById(R.id.pinnedAppName)
-        private val focusBackground: View = itemView.findViewById(R.id.focusBackground)
+        private val iconView: ImageView = itemView.findViewById(R.id.appIcon)
+        private val nameView: TextView = itemView.findViewById(R.id.appName)
+        private val focusBackground: View = itemView.findViewById(R.id.focusGlow)
 
         fun bind(appInfo: AppInfo) {
             iconView.setImageDrawable(appInfo.icon)
-            nameView.text = appInfo.appName
+            nameView.text = appInfo.name
 
             // Reset state
             itemView.scaleX = 1f

@@ -52,4 +52,17 @@
     <string name="set_default_launcher_title">Set as Default</string>
     <string name="set_default_launcher_message">Set TV Launcher as your default home screen?</string>
     <string name="cannot_open_settings">Cannot open settings</string>
+
+    <!-- Control Center -->
+    <string name="wifi_on">Wi-Fi On</string>
+    <string name="wifi_off">Wi-Fi Off</string>
+    <string name="bluetooth_on">Bluetooth On</string>
+    <string name="bluetooth_off">Bluetooth Off</string>
+    <string name="brightness_permission">Permission required to change brightness</string>
+    <string name="wifi_toggle_failed">Failed to toggle Wi-Fi</string>
+    <string name="bluetooth_toggle_failed">Failed to toggle Bluetooth</string>
+    <string name="app_launch_failed">Failed to launch app</string>
+    <string name="pin_app">Pin to Home</string>
+    <string name="unpin_app">Unpin</string>
+    <string name="uninstall_app">Uninstall</string>
 </resources>

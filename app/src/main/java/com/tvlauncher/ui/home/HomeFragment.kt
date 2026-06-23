@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tvlauncher.R
 import com.tvlauncher.data.AppInfo
+import com.tvlauncher.data.PrefsManager
 import com.tvlauncher.databinding.FragmentHomeBinding
 import com.tvlauncher.ui.MainActivity
-import com.tvlauncher.util.PrefsManager
 
 class HomeFragment : Fragment() {
 
@@ -125,17 +125,16 @@ class HomeFragment : Fragment() {
             .filter { it.activityInfo.packageName != launcherPackage }
             .map { resolveInfo ->
                 AppInfo(
+                    name = resolveInfo.loadLabel(packageManager).toString(),
                     packageName = resolveInfo.activityInfo.packageName,
-                    className = resolveInfo.activityInfo.name,
-                    appName = resolveInfo.loadLabel(packageManager).toString(),
                     icon = resolveInfo.loadIcon(packageManager)
                 )
             }
-            .sortedBy { it.appName.lowercase() }
+            .sortedBy { it.name.lowercase() }
 
         allApps.addAll(apps)
 
-        val pinnedPackageNames = prefsManager.pinnedApps
+        val pinnedPackageNames = prefsManager.getPinnedOrder()
         pinnedApps.addAll(apps.filter { it.packageName in pinnedPackageNames })
 
         val unpinnedApps = apps.filter { it.packageName !in pinnedPackageNames }
@@ -143,17 +142,18 @@ class HomeFragment : Fragment() {
         pinnedAdapter.submitList(pinnedApps.toList())
         appAdapter.submitList(unpinnedApps.toList())
 
-        binding.pinnedSection.visibility = if (pinnedApps.isEmpty()) View.GONE else View.VISIBLE
+        binding.pinnedRecyclerView.visibility = if (pinnedApps.isEmpty()) View.GONE else View.VISIBLE
+        binding.pinnedLabel.visibility = if (pinnedApps.isEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun launchApp(appInfo: AppInfo) {
         try {
-            val intent = Intent(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_LAUNCHER)
-                component = ComponentName(appInfo.packageName, appInfo.className)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            val intent = requireContext().packageManager.getLaunchIntentForPackage(appInfo.packageName)
+            if (intent != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, R.string.app_launch_failed, Toast.LENGTH_SHORT).show()
             }
-            startActivity(intent)
         } catch (e: Exception) {
             Toast.makeText(context, R.string.app_launch_failed, Toast.LENGTH_SHORT).show()
         }
@@ -161,7 +161,8 @@ class HomeFragment : Fragment() {
 
     private fun showContextMenu(appInfo: AppInfo, anchorView: View) {
         val popup = PopupMenu(requireContext(), anchorView)
-        val isPinned = prefsManager.pinnedApps.contains(appInfo.packageName)
+        val pinnedOrder = prefsManager.getPinnedOrder()
+        val isPinned = pinnedOrder.contains(appInfo.packageName)
 
         if (isPinned) {
             popup.menu.add(0, 1, 0, R.string.unpin_app)
@@ -174,12 +175,18 @@ class HomeFragment : Fragment() {
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 0 -> { // Pin
-                    prefsManager.addPinnedApp(appInfo.packageName)
+                    val order = prefsManager.getPinnedOrder().toMutableList()
+                    if (!order.contains(appInfo.packageName)) {
+                        order.add(appInfo.packageName)
+                    }
+                    prefsManager.savePinnedOrder(order)
                     loadApps()
                     true
                 }
                 1 -> { // Unpin
-                    prefsManager.removePinnedApp(appInfo.packageName)
+                    val order = prefsManager.getPinnedOrder().toMutableList()
+                    order.remove(appInfo.packageName)
+                    prefsManager.savePinnedOrder(order)
                     loadApps()
                     true
                 }

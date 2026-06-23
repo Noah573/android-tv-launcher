@@ -41,13 +41,11 @@ class AppAdapter(
     inner class AppViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val iconView: ImageView = itemView.findViewById(R.id.appIcon)
         private val nameView: TextView = itemView.findViewById(R.id.appName)
-        private val focusBackground: View = itemView.findViewById(R.id.focusBackground)
-        private val pinIndicator: View? = itemView.findViewById(R.id.pinIndicator)
+        private val focusBackground: View = itemView.findViewById(R.id.focusGlow)
 
         fun bind(appInfo: AppInfo) {
             iconView.setImageDrawable(appInfo.icon)
-            nameView.text = appInfo.appName
-            pinIndicator?.visibility = View.GONE
+            nameView.text = appInfo.name
 
             // Reset state
             itemView.scaleX = 1f

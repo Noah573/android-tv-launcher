@@ -1,8 +1,5 @@
 package com.tvlauncher.ui.controlcenter
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -14,26 +11,21 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
-import android.widget.ImageButton
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.tvlauncher.R
 import com.tvlauncher.ui.MainActivity
-import com.tvlauncher.ui.settings.SettingsFragment
 
 class ControlCenterFragment : Fragment() {
 
-    private lateinit var wifiToggle: ImageButton
-    private lateinit var bluetoothToggle: ImageButton
-    private lateinit var brightnessSlider: SeekBar
-    private lateinit var volumeSlider: SeekBar
-    private lateinit var sleepButton: ImageButton
-    private lateinit var settingsButton: ImageButton
-    private lateinit var wifiLabel: TextView
-    private lateinit var bluetoothLabel: TextView
+    private lateinit var wifiSwitch: SwitchCompat
+    private lateinit var bluetoothSwitch: SwitchCompat
+    private lateinit var brightnessSeekBar: SeekBar
+    private lateinit var volumeSeekBar: SeekBar
+    private lateinit var sleepButton: View
+    private lateinit var settingsButton: View
 
     private var isWifiEnabled = false
     private var isBluetoothEnabled = false
@@ -49,19 +41,16 @@ class ControlCenterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        wifiToggle = view.findViewById(R.id.wifiToggle)
-        bluetoothToggle = view.findViewById(R.id.bluetoothToggle)
-        brightnessSlider = view.findViewById(R.id.brightnessSlider)
-        volumeSlider = view.findViewById(R.id.volumeSlider)
+        wifiSwitch = view.findViewById(R.id.wifiSwitch)
+        bluetoothSwitch = view.findViewById(R.id.bluetoothSwitch)
+        brightnessSeekBar = view.findViewById(R.id.brightnessSeekBar)
+        volumeSeekBar = view.findViewById(R.id.volumeSeekBar)
         sleepButton = view.findViewById(R.id.sleepButton)
         settingsButton = view.findViewById(R.id.settingsButton)
-        wifiLabel = view.findViewById(R.id.wifiLabel)
-        bluetoothLabel = view.findViewById(R.id.bluetoothLabel)
 
         setupInitialState()
         setupClickListeners()
         setupSliders()
-        playSlideInAnimation(view)
     }
 
     private fun setupInitialState() {
@@ -82,27 +71,27 @@ class ControlCenterFragment : Fragment() {
 
         // Volume
         val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        volumeSlider.max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-        volumeSlider.progress = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        volumeSeekBar.max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        volumeSeekBar.progress = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
 
         // Brightness
-        brightnessSlider.max = 255
+        brightnessSeekBar.max = 255
         try {
-            brightnessSlider.progress = Settings.System.getInt(
+            brightnessSeekBar.progress = Settings.System.getInt(
                 requireContext().contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS
             )
         } catch (_: Exception) {
-            brightnessSlider.progress = 128
+            brightnessSeekBar.progress = 128
         }
     }
 
     private fun setupClickListeners() {
-        wifiToggle.setOnClickListener {
+        wifiSwitch.setOnCheckedChangeListener { _, _ ->
             toggleWifi()
         }
 
-        bluetoothToggle.setOnClickListener {
+        bluetoothSwitch.setOnCheckedChangeListener { _, _ ->
             toggleBluetooth()
         }
 
@@ -114,15 +103,10 @@ class ControlCenterFragment : Fragment() {
             (activity as? MainActivity)?.closeOverlay()
             (activity as? MainActivity)?.openSettings()
         }
-
-        // Back button dismisses
-        view?.findViewById<View>(R.id.controlCenterOverlay)?.setOnClickListener {
-            (activity as? MainActivity)?.closeOverlay()
-        }
     }
 
     private fun setupSliders() {
-        volumeSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     val audioManager = requireContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -133,7 +117,7 @@ class ControlCenterFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        brightnessSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        brightnessSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     try {
@@ -192,43 +176,22 @@ class ControlCenterFragment : Fragment() {
     }
 
     private fun updateWifiUI() {
+        wifiSwitch.isChecked = isWifiEnabled
+        val wifiIcon = view?.findViewById<android.widget.ImageView>(R.id.wifiIcon)
         if (isWifiEnabled) {
-            wifiToggle.setImageResource(R.drawable.ic_wifi_on)
-            wifiToggle.alpha = 1.0f
-            wifiLabel.text = getString(R.string.wifi_on)
+            wifiIcon?.setImageResource(R.drawable.ic_wifi_on)
+            wifiIcon?.alpha = 1.0f
         } else {
-            wifiToggle.setImageResource(R.drawable.ic_wifi_off)
-            wifiToggle.alpha = 0.5f
-            wifiLabel.text = getString(R.string.wifi_off)
+            wifiIcon?.setImageResource(R.drawable.ic_wifi_off)
+            wifiIcon?.alpha = 0.5f
         }
     }
 
     private fun updateBluetoothUI() {
-        if (isBluetoothEnabled) {
-            bluetoothToggle.setImageResource(R.drawable.ic_bluetooth_on)
-            bluetoothToggle.alpha = 1.0f
-            bluetoothLabel.text = getString(R.string.bluetooth_on)
-        } else {
-            bluetoothToggle.setImageResource(R.drawable.ic_bluetooth_off)
-            bluetoothToggle.alpha = 0.5f
-            bluetoothLabel.text = getString(R.string.bluetooth_off)
-        }
-    }
-
-    private fun playSlideInAnimation(view: View) {
-        val cardView = view.findViewById<View>(R.id.controlCenterCard) ?: return
-        cardView.translationY = -500f
-        cardView.alpha = 0f
-
-        val slideDown = ObjectAnimator.ofFloat(cardView, "translationY", -500f, 0f)
-        val fadeIn = ObjectAnimator.ofFloat(cardView, "alpha", 0f, 1f)
-
-        AnimatorSet().apply {
-            playTogether(slideDown, fadeIn)
-            duration = 300
-            interpolator = DecelerateInterpolator()
-            start()
-        }
+        bluetoothSwitch.isChecked = isBluetoothEnabled
+        val bluetoothIcon = view?.findViewById<android.widget.ImageView>(R.id.bluetoothIcon)
+        bluetoothIcon?.setImageResource(R.drawable.ic_bluetooth)
+        bluetoothIcon?.alpha = if (isBluetoothEnabled) 1.0f else 0.5f
     }
 
     companion object {
