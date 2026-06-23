@@ -1,24 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="48dp"
-    android:gravity="center_horizontal">
+    android:background="@color/bg_primary">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose your favorite apps"
-        android:textColor="@color/text_primary"
-        android:textSize="28sp"
-        android:layout_marginBottom="32dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/appSelectionGrid"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="48dp">
 
-</LinearLayout>
+        <!-- Header area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onboarding_select_title"
+                android:textColor="@color/text_primary"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onboarding_select_desc"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp" />
+
+            <!-- Selected count -->
+            <TextView
+                android:id="@+id/selectedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onboarding_selected_count"
+                android:textColor="@color/accent"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- App grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appSelectionGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
+
+        <!-- Bottom button area -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/skipBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/onboarding_skip"
+                android:textSize="16sp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/text_secondary"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/doneBtn"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:text="@string/onboarding_done"
+                android:textSize="16sp"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="@color/text_primary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

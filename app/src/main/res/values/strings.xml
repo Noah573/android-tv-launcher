@@ -1,68 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TV Launcher</string>
-    <string name="favorites">Pinned</string>
-    <string name="all_apps">All Apps</string>
-    <string name="search_hint">Search apps…</string>
-    <string name="settings">Settings</string>
-    <string name="wallpaper">Wallpaper</string>
-    <string name="animation_level">Animation</string>
-    <string name="about">About</string>
-    <string name="set_default">Set as Default Home</string>
+    <string name="favorites">置顶应用</string>
+    <string name="all_apps">全部应用</string>
+    <string name="search_hint">搜索应用…</string>
+    <string name="settings">设置</string>
+    <string name="wallpaper">壁纸</string>
+    <string name="animation_level">动画效果</string>
+    <string name="about">关于</string>
+    <string name="set_default">设为默认桌面</string>
     <string name="wifi">Wi-Fi</string>
-    <string name="bluetooth">Bluetooth</string>
-    <string name="brightness">Brightness</string>
-    <string name="volume">Volume</string>
-    <string name="sleep">Sleep</string>
-    <string name="control_center">Control Center</string>
-    <string name="screensaver">Screensaver</string>
-    <string name="search">Search</string>
-    <string name="onboarding_welcome">Welcome to TV Launcher</string>
-    <string name="onboarding_select_apps">Select your favorite apps</string>
-    <string name="onboarding_finish">Get Started</string>
-    <string name="next">Next</string>
-    <string name="done">Done</string>
-    <string name="no_apps_found">No apps found</string>
-    <string name="version">Version</string>
-    <string name="set_pinned">Pin to Home</string>
-    <string name="unpin">Unpin</string>
-    <string name="uninstall">Uninstall</string>
-    <string name="app_info">App Info</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="later">Later</string>
+    <string name="bluetooth">蓝牙</string>
+    <string name="brightness">亮度</string>
+    <string name="volume">音量</string>
+    <string name="sleep">休眠</string>
+    <string name="control_center">控制中心</string>
+    <string name="screensaver">屏保</string>
+    <string name="search">搜索</string>
+    <string name="next">下一步</string>
+    <string name="done">完成</string>
+    <string name="ok">好的</string>
+    <string name="cancel">取消</string>
+    <string name="later">稍后</string>
 
-    <!-- Onboarding -->
-    <string name="onboarding_welcome_title">Welcome</string>
-    <string name="onboarding_welcome_message">Your new TV home screen</string>
-    <string name="onboarding_next">Next</string>
-    <string name="onboarding_select_title">Select Apps</string>
-    <string name="onboarding_select_message">Choose your favorite apps to pin</string>
-    <string name="onboarding_done">Get Started</string>
+    <!-- App context menu -->
+    <string name="set_pinned">置顶到首页</string>
+    <string name="unpin">取消置顶</string>
+    <string name="uninstall">卸载</string>
+    <string name="app_info">应用信息</string>
+    <string name="app_launch_failed">无法打开应用</string>
+    <string name="pin_app">置顶到首页</string>
+    <string name="unpin_app">取消置顶</string>
+    <string name="uninstall_app">卸载</string>
 
-    <!-- Settings -->
-    <string name="settings_wallpaper">Wallpaper</string>
-    <string name="settings_animation">Animation Level</string>
-    <string name="settings_about">About</string>
-    <string name="anim_high">High</string>
-    <string name="anim_medium">Medium</string>
-    <string name="anim_low">Low</string>
+    <!-- Onboarding - Welcome -->
+    <string name="onboarding_welcome_title">欢迎使用</string>
+    <string name="onboarding_welcome_desc">你的全新电视桌面\n简洁 · 流畅 · 美观</string>
+    <string name="onboarding_start">开始设置</string>
+
+    <!-- Onboarding - Select Apps -->
+    <string name="onboarding_select_title">选择置顶应用</string>
+    <string name="onboarding_select_desc">选择你想放在首页的应用，之后也可以随时修改</string>
+    <string name="onboarding_selected_count">已选择 %d 个应用</string>
+    <string name="onboarding_skip">跳过</string>
+    <string name="onboarding_done">完成选择</string>
+
+    <!-- Onboarding - Ready -->
+    <string name="onboarding_ready_title">一切就绪</string>
+    <string name="onboarding_ready_desc">你的专属桌面已准备好\n按遥控器方向键浏览，确认键打开应用</string>
+    <string name="onboarding_go">开始使用</string>
 
     <!-- Default Launcher -->
-    <string name="set_default_launcher_title">Set as Default</string>
-    <string name="set_default_launcher_message">Set TV Launcher as your default home screen?</string>
-    <string name="cannot_open_settings">Cannot open settings</string>
+    <string name="set_default_launcher_title">设为默认桌面</string>
+    <string name="set_default_launcher_message">是否将 TV Launcher 设为默认桌面？\n设置后开机将自动进入此桌面</string>
+    <string name="cannot_open_settings">无法打开设置</string>
 
-    <!-- Control Center -->
-    <string name="wifi_on">Wi-Fi On</string>
-    <string name="wifi_off">Wi-Fi Off</string>
-    <string name="bluetooth_on">Bluetooth On</string>
-    <string name="bluetooth_off">Bluetooth Off</string>
-    <string name="brightness_permission">Permission required to change brightness</string>
-    <string name="wifi_toggle_failed">Failed to toggle Wi-Fi</string>
-    <string name="bluetooth_toggle_failed">Failed to toggle Bluetooth</string>
-    <string name="app_launch_failed">Failed to launch app</string>
-    <string name="pin_app">Pin to Home</string>
-    <string name="unpin_app">Unpin</string>
-    <string name="uninstall_app">Uninstall</string>
+    <!-- Settings -->
+    <string name="settings_wallpaper">更换壁纸</string>
+    <string name="settings_animation">动画效果</string>
+    <string name="settings_about">关于</string>
+    <string name="anim_high">高</string>
+    <string name="anim_medium">中</string>
+    <string name="anim_low">低</string>
 </resources>
