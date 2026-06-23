@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <!-- Wallpaper background -->
     <ImageView
@@ -13,30 +13,17 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg_wallpaper_1" />
 
-    <CoordinatorLayout
+    <!-- Home fragment container -->
+    <FrameLayout
+        android:id="@+id/homeContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <!-- Status bar -->
-        <include
-            layout="@layout/fragment_home"
-            android:id="@+id/homeContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Home fragment container -->
-        <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Overlay container for control center, screensaver, search, settings -->
-        <FrameLayout
-            android:id="@+id/overlayContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-    </CoordinatorLayout>
+    <!-- Overlay container for control center, screensaver, search, settings -->
+    <FrameLayout
+        android:id="@+id/overlayContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </FrameLayout>
