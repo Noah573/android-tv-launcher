@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:id="@+id/statusBar">
 
         <ImageView
             android:id="@+id/weatherIcon"
