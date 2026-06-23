@@ -3,45 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="48dp">
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
-    <!-- Status bar section -->
+    <!-- Top bar: weather + clock + wifi + search + settings -->
     <LinearLayout
-        android:id="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="32dp">
+        android:layout_marginBottom="16dp">
 
         <ImageView
             android:id="@+id/weatherIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_weather_sunny"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="6dp" />
 
         <TextView
             android:id="@+id/weatherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:layout_marginEnd="32dp" />
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:layout_marginEnd="20dp"
+            android:text="--°" />
 
         <TextView
             android:id="@+id/clockText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:layout_marginEnd="16dp" />
 
         <ImageView
             android:id="@+id/wifiIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_wifi_on"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Spacer -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Search button -->
+        <ImageView
+            android:id="@+id/searchBtn"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_wifi_on" />
+            android:src="@drawable/ic_search"
+            android:layout_marginEnd="20dp"
+            android:padding="2dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Settings button -->
+        <ImageView
+            android:id="@+id/settingsBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_settings"
+            android:padding="2dp"
+            android:clickable="true"
+            android:focusable="true" />
 
     </LinearLayout>
 
@@ -52,25 +83,23 @@
         android:layout_height="wrap_content"
         android:text="@string/favorites"
         android:textColor="@color/text_secondary"
-        android:textSize="16sp"
-        android:layout_marginBottom="12dp" />
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pinnedRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
-        android:clipToPadding="false"
-        android:paddingStart="0dp"
-        android:paddingEnd="16dp" />
+        android:clipToPadding="false" />
 
-    <!-- Divider gradient line -->
+    <!-- Divider -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_gradient" />
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/divider" />
 
     <!-- All Apps section -->
     <TextView
@@ -79,8 +108,8 @@
         android:layout_height="wrap_content"
         android:text="@string/all_apps"
         android:textColor="@color/text_secondary"
-        android:textSize="16sp"
-        android:layout_marginBottom="12dp" />
+        android:textSize="13sp"
+        android:layout_marginBottom="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allAppsRecyclerView"
@@ -88,6 +117,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="16dp" />
+        android:paddingBottom="8dp" />
 
 </LinearLayout>

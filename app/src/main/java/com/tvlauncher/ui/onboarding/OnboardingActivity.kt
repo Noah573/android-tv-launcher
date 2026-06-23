@@ -108,10 +108,11 @@ class OnboardingActivity : AppCompatActivity() {
     private fun getColumnCount(): Int {
         val widthDp = resources.displayMetrics.widthPixels / resources.displayMetrics.density
         return when {
-            widthDp >= 960 -> 7
-            widthDp >= 720 -> 6
-            widthDp >= 540 -> 5
-            else -> 4
+            widthDp >= 960 -> 9
+            widthDp >= 720 -> 8
+            widthDp >= 540 -> 7
+            widthDp >= 400 -> 6
+            else -> 5
         }
     }
 
@@ -165,7 +166,7 @@ class OnboardingActivity : AppCompatActivity() {
     ) : RecyclerView.Adapter<SelectAppAdapter.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_app, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_app_small, parent, false)
             return ViewHolder(view)
         }
 

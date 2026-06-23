@@ -50,6 +50,7 @@ class HomeFragment : Fragment() {
         prefsManager = PrefsManager(requireContext())
         setupPinnedRow()
         setupAppGrid()
+        setupTopBarButtons()
         loadApps()
     }
 
@@ -89,6 +90,15 @@ class HomeFragment : Fragment() {
             layoutManager = GridLayoutManager(context, getColumnCount())
             adapter = appAdapter
             descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS
+        }
+    }
+
+    private fun setupTopBarButtons() {
+        binding.searchBtn.setOnClickListener {
+            (activity as? MainActivity)?.openSearch()
+        }
+        binding.settingsBtn.setOnClickListener {
+            (activity as? MainActivity)?.openSettings()
         }
     }
 
